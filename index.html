@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Hamiltonian paths visualiser</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="hamiltonian.js" type="module"></script>
+    </head>
+    <body>
+        
+        <button id ="button" style="font-size:150%;color:#07c;background-color:#ccc;padding:5px" >Generate Hamiltonian paths</button>
+        <br/><br/>
+        <form name="path_parameters">
+            Attempted paths:
+            <input type="text" name="Npath" id="Npath" size="6" value="1000"/>&nbsp; &nbsp; &nbsp;
+            Grid size: 
+            <input type="text" name="n" id="n" size="4" value="4"/>
+            Quality factor: 
+            <input type="text" name="q" id="q" size="6" value="1.0"/>
+            Amount per row: 
+            <input type="text" name="r" id="r" size="10" value="10"/>
+        </form>
+        <br/>
+        <canvas id="path_canvas" width="1800" height="800"></canvas>
+    </body>
+</html>
