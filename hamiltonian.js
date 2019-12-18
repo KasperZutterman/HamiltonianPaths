@@ -274,6 +274,20 @@ function generate_hamiltonian_circuit(n, q) {
     return path;
 }
 
+function generate_hamiltonian_cycles(n, paths) {
+    var cycles = [];
+    let l = n * n;
+    for (let i = 0; i < paths.length; i++) {
+        if (   paths[i][0][0] == paths[i][l-1][0] && paths[i][0][1] == paths[i][l-1][1] + 1
+            || paths[i][0][0] == paths[i][l-1][0] && paths[i][0][1] == paths[i][l-1][1] - 1
+            || paths[i][0][1] == paths[i][l-1][1] && paths[i][0][0] == paths[i][l-1][0] + 1
+            || paths[i][0][1] == paths[i][l-1][1] && paths[i][0][0] == paths[i][l-1][0] - 1) {
+                cycles.push(paths[i]);
+            }
+    }
+    return cycles;
+}
+
 function draw_path(n, path) {
     var i;
     var x, y;
@@ -392,10 +406,8 @@ function draw_path_small(n, path, start_x, start_y, row_amount) {
 
 function draw_all_paths(n, paths, row_amount) {
     var canvas = document.getElementById('path_canvas');
-    //var ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth - 30;
     canvas.height = (canvas.width / row_amount + 1) * (paths.length / row_amount);
-    console.log(canvas.width / row_amount * paths.length / row_amount);
     for(let i = 0; i < paths.length; i++) {
         draw_path_small(n, paths[i], i % row_amount, Math.floor(i / row_amount), row_amount);
     }
@@ -423,7 +435,13 @@ function refresh_path() {
     if (Npath < row_amount) {
         row_amount = Npath;
     }
-    draw_all_paths(n, paths, row_amount);
+    if (document.getElementById("c").checked) {
+        let cycles = generate_hamiltonian_cycles(n, paths);
+        draw_all_paths(n, cycles, row_amount);
+    }
+    else {
+        draw_all_paths(n, paths, row_amount);
+    }
     return;
 }
 
